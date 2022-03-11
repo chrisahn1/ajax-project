@@ -11,6 +11,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   max-width: 1000px;
+  position: absolute;
 }
 
 header {
@@ -24,24 +25,18 @@ header {
   margin-right: auto;
   max-width: 800px;
   align-items: center;
+  position: relative;
 }
 
 .header {
   color: white;
 }
 
-.view-saves-button,
-.view-search-button {
-  color: white;
-  background-color: #5cc1d7;
-  border-width: 0;
-  padding-right: 30px;
-  padding-left: 45px;
-  font-size: 18px;
-}
-
 button {
   border-radius: 5px;
+  color: white;
+  border-width: 0;
+  padding: 10px 20px;
 }
 
 i:hover,
@@ -50,7 +45,6 @@ button:hover {
 }
 
 .search-input {
-  display: flex;
   justify-content: flex-start;
   max-width: 1000px;
   margin-left: auto;
@@ -77,29 +71,89 @@ input {
 
 .search-button {
   background-color: #827ff6;
-  color: white;
-  border-width: 0;
-  padding: 10px 20px;
   margin-left: 30px;
   margin-right: 30px;
-}
-
-.display-results {
-  width: 100%;
-  margin-left: 30px;
-  margin-right: 30px;
-}
-
-.background-image {
-  width: 100%;
-  position: fixed;
-  margin-top: 100px;
 }
 
 img {
+  width: 300px;
+  height: 125px;
+  object-fit: scale-down;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
   width: 100%;
 }
 
+li {
+  display: inline-block;
+  text-align: center;
+}
+
+.species-box {
+  background-color: #cad3d2;
+  border-radius: 5px;
+  border-width: 10px;
+  width: 25%;
+}
+
+.species-image {
+  justify-content: center;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  padding: 10px;
+  background-color: white;
+}
+
 .search-result-tree {
-  position: absolute;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media screen and (min-width: 320px) {
+  .species-box {
+    width: 300px;
+    height: 200px;
+    margin: 10px;
+  }
+}
+
+@media screen and (min-width: 568px) {
+  .species-box {
+    width: 1351px;
+    height: 470px;
+    margin: 20px;
+  }
+
+  .search-input {
+    display: flex;
+  }
+}
+
+@media screen and (min-width: 569px) {
+  .species-box {
+    width: 400px;
+    height: 200px;
+    margin: 20px;
+  }
+
+  .search-input {
+    justify-content: flex-start;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
 }
