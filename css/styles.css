@@ -91,8 +91,10 @@ li {
 .species-box {
   background-color: #cad3d2;
   border-radius: 5px;
-  border-width: 10px;
+  border-width: 5px;
+  border-color: teal;
   width: 25%;
+  border-style: double;
 }
 
 .species-image {
