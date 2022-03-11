@@ -11,8 +11,27 @@
 </head>
 <body>
   <header>
+    <div class="top-header">
+      <h1 class="header">Fish Management</h1>
+    </div>
   </header>
   <main>
+    <div class="container" data-view="search-form">
+      <form id="search-results-form">
+        <div class="search-input">
+          <div>
+            <input required autofocus type="text" id="search" name="search" size="100">
+          </div>
+          <div>
+            <button class="search-button">SEARCH</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="search-result-tree">
+      <ul class="results">
+      </ul>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
