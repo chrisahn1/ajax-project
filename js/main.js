@@ -1,6 +1,6 @@
 var search = document.querySelector('.search-button');
 var input = document.querySelector('#search-results-form').elements;
-var ul = document.querySelector('.results');
+// var ul = document.querySelector('.results');
 var searchResultTree = document.querySelector('.search-result-tree');
 // var fishInfoContainer = document.querySelector('.fish-info-container');
 
@@ -9,6 +9,13 @@ searchResultTree.addEventListener('click', infoSpecies);
 
 function resultSpecies(event) {
   event.preventDefault();
+
+  while (searchResultTree.firstElementChild) {
+    searchResultTree.firstElementChild.remove();
+  }
+
+  var ul = document.createElement('ul');
+  ul.className = 'results';
 
   var targetUrl = encodeURIComponent('https://www.fishwatch.gov/api/species');
 
@@ -34,7 +41,8 @@ function resultSpecies(event) {
 
   });
   xhr.send();
-  ul.className = 'results';
+  searchResultTree.appendChild(ul);
+  // ul.className = 'results';
 }
 
 function appendList(species) {
@@ -116,7 +124,7 @@ function appendList(species) {
 
 function infoSpecies(event) {
   event.preventDefault();
-  ul.className = 'results hidden';
+  // ul.className = 'results hidden';
 
   // console.log(event.target.closest('.species-box').id);
   // console.log(data.entries);
