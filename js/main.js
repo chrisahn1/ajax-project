@@ -85,25 +85,25 @@ function appendList(species) {
 
   // Section 2
   if (typeof species.Population === 'undefined' || species.Population === null) {
-    obj['Environmental Considerations'] = species['Environmental Considerations'];
+    obj.Population = 'n/a';
   } else {
     obj.Population = species.Population;
   }
 
   if (typeof species['Habitat Impacts'] === 'undefined' || species['Habitat Impacts'] === null) {
-    obj['Farming Methods'] = species['Farming Methods'];
+    obj['Habitat Impacts'] = 'n/a';
   } else {
     obj['Habitat Impacts'] = species['Habitat Impacts'];
   }
 
   if (typeof species['Fishing Rate'] === 'undefined' || species['Fishing Rate'] === null) {
-    obj.Feeds = species.Feeds;
+    obj['Fishing Rate'] = 'n/a';
   } else {
     obj['Fishing Rate'] = species['Fishing Rate'];
   }
 
   if (typeof species.Bycatch === 'undefined' || species.Bycatch === null) {
-    obj['Human Health'] = species['Human Health'];
+    obj.Bycatch = 'n/a';
   } else {
     obj.Bycatch = species.Bycatch;
   }
@@ -116,7 +116,7 @@ function appendList(species) {
 
   // Section 4
   if (typeof species['Fishery Management'] === 'undefined' || species['Fishery Management'] === null) {
-    obj.Management = species.Management;
+    obj['Fishery Management'] = 'n/a';
   } else {
     obj['Fishery Management'] = species['Fishery Management'];
   }
@@ -151,8 +151,6 @@ function infoSpecies(event) {
     fishInfoContainer.firstElementChild.remove();
   }
 
-  // ul.className = 'results hidden';
-
   var fish = {};
 
   for (var i = 0; i < data.entries.length; i++) {
@@ -165,17 +163,13 @@ function infoSpecies(event) {
   // console.log(event.target.closest('.species-box').id);
   // console.log(data.entries);
 
-  var sectionOne = document.createElement('div');
-  var sectionTwo = document.createElement('div');
-  var sectionThree = document.createElement('div');
-  var sectionFour = document.createElement('div');
+  var sectionOne = document.createElement('section');
+  var sectionTwo = document.createElement('section');
+  var sectionThree = document.createElement('section');
+  var sectionFour = document.createElement('section');
 
   var sectionHalf1 = document.createElement('div');
   var sectionHalf2 = document.createElement('div');
-  var sectionFourth1 = document.createElement('div');
-  var sectionFourth2 = document.createElement('div');
-  var sectionFourth3 = document.createElement('div');
-  var sectionFourth4 = document.createElement('div');
 
   sectionOne.setAttribute('class', 'section-one');
   sectionTwo.setAttribute('class', 'section-two');
@@ -184,11 +178,6 @@ function infoSpecies(event) {
 
   sectionHalf1.setAttribute('class', 'section-half');
   sectionHalf2.setAttribute('class', 'section-half');
-
-  sectionFourth1.setAttribute('class', 'section-fourth');
-  sectionFourth2.setAttribute('class', 'section-fourth');
-  sectionFourth3.setAttribute('class', 'section-fourth');
-  sectionFourth4.setAttribute('class', 'section-fourth');
 
   var speciesName = document.createElement('h3');
   speciesName.textContent = fish['Species Name'];
@@ -220,8 +209,139 @@ function infoSpecies(event) {
   sectionTwo.appendChild(imageDiv);
   sectionTwo.appendChild(quoteDiv);
 
+  var ul1 = document.createElement('ul');
+  ul1.className = 'section-two-a';
+  var ul2 = document.createElement('ul');
+  ul2.className = 'section-two-b';
+
+  // First Half of UL
+  var li11 = document.createElement('li');
+  li11.className = 'fish-list';
+  var h211 = document.createElement('h2');
+  var p11 = document.createElement('p');
+  h211.textContent = 'Population';
+  p11.textContent = fish.Population;
+  li11.appendChild(h211);
+  li11.appendChild(p11);
+  ul1.appendChild(li11);
+
+  var li12 = document.createElement('li');
+  li12.className = 'fish-list';
+  var h212 = document.createElement('h2');
+  var p12 = document.createElement('p');
+  h212.textContent = 'Habitat Impacts';
+  p12.textContent = fish['Habitat Impacts'];
+  li12.appendChild(h212);
+  li12.appendChild(p12);
+  ul1.appendChild(li12);
+
+  var li13 = document.createElement('li');
+  li13.className = 'fish-list';
+  var h213 = document.createElement('h2');
+  var p13 = document.createElement('p');
+  h213.textContent = 'Fishing Rate';
+  p13.textContent = fish['Fishing Rate'];
+  li13.appendChild(h213);
+  li13.appendChild(p13);
+  ul1.appendChild(li13);
+
+  var li14 = document.createElement('li');
+  li14.className = 'fish-list';
+  var h214 = document.createElement('h2');
+  var p14 = document.createElement('p');
+  h214.textContent = 'Bycatch';
+  p14.textContent = fish.Bycatch;
+  li14.appendChild(h214);
+  li14.appendChild(p14);
+  ul1.appendChild(li14);
+
+  // Second Half of UL
+  var li21 = document.createElement('li');
+  li21.className = 'fish-list';
+  var h221 = document.createElement('h2');
+  var p21 = document.createElement('p');
+  h221.textContent = 'Availability';
+  p21.textContent = fish.Availability;
+  li21.appendChild(h221);
+  li21.appendChild(p21);
+  ul2.appendChild(li21);
+
+  var li22 = document.createElement('li');
+  li22.className = 'fish-list';
+  var h222 = document.createElement('h2');
+  var p22 = document.createElement('p');
+  h222.textContent = 'Taste';
+  p22.textContent = fish.Taste;
+  li22.appendChild(h222);
+  li22.appendChild(p22);
+  ul2.appendChild(li22);
+
+  var li23 = document.createElement('li');
+  li23.className = 'fish-list';
+  var h223 = document.createElement('h2');
+  var p23 = document.createElement('p');
+  h223.textContent = 'Source';
+  p23.textContent = fish.Source;
+  li23.appendChild(h223);
+  li23.appendChild(p23);
+  ul2.appendChild(li23);
+
+  var li24 = document.createElement('li');
+  li24.className = 'fish-list';
+  var h224 = document.createElement('h2');
+  var p24 = document.createElement('p');
+  h224.textContent = 'Health Benefits';
+  p24.textContent = fish['Health Benefits'];
+  li24.appendChild(h224);
+  li24.appendChild(p24);
+  ul2.appendChild(li24);
+
+  sectionThree.appendChild(ul1);
+  sectionThree.appendChild(ul2);
+
+  var article1 = document.createElement('article');
+  var article2 = document.createElement('article');
+  var article3 = document.createElement('article');
+  var article4 = document.createElement('article');
+
+  var article1h = document.createElement('h2');
+  var article2h = document.createElement('h2');
+  var article3h = document.createElement('h2');
+  var article4h = document.createElement('h2');
+
+  // var article1section = document.createElement('section');
+  // article1section.className = 'details';
+  // var article2section = document.createElement('section');
+  // article2section.className = 'details';
+  // var article3section = document.createElement('section');
+  // article3section.className = 'details';
+  // var article4section = document.createElement('section');
+  // article4section.className = 'details';
+
+  article1h.textContent = 'Fishery Management';
+  article2h.textContent = 'Physical Description';
+  article3h.textContent = 'Biology';
+  article4h.textContent = 'Research';
+
+  // 'Fishery Management'
+  // 'Physical Description'
+  // Biology
+  // Research
+
+  article1.appendChild(article1h);
+  article2.appendChild(article2h);
+  article3.appendChild(article3h);
+  article4.appendChild(article4h);
+
+  sectionFour.appendChild(article1);
+  sectionFour.appendChild(article2);
+  sectionFour.appendChild(article3);
+  sectionFour.appendChild(article4);
+
   fishInfoContainer.appendChild(sectionOne);
   fishInfoContainer.appendChild(sectionTwo);
+  fishInfoContainer.appendChild(sectionThree);
+  fishInfoContainer.appendChild(sectionFour);
 
   fishInfoContainer.className = 'fish-info-container';
   searchResultTree.className = 'search-result-tree hidden';
