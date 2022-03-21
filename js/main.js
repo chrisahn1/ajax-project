@@ -81,6 +81,7 @@ function appendList(species) {
   obj['Species Name'] = species['Species Name'];
   obj['Species Illustration Photo'] = species['Species Illustration Photo'].src;
   obj['Scientific Name'] = species['Scientific Name'];
+  obj.Quote = species.Quote;
 
   // Section 2
   if (typeof species.Population === 'undefined' || species.Population === null) {
@@ -189,16 +190,38 @@ function infoSpecies(event) {
   sectionFourth3.setAttribute('class', 'section-fourth');
   sectionFourth4.setAttribute('class', 'section-fourth');
 
-  var speciesName = document.createElement('p');
+  var speciesName = document.createElement('h3');
   speciesName.textContent = fish['Species Name'];
 
-  var scienceName = document.createElement('p');
+  var scienceName = document.createElement('h3');
   scienceName.textContent = fish['Scientific Name'];
+
+  var nutrition = document.createElement('a');
+  nutrition.textContent = 'Nutrition';
 
   sectionOne.appendChild(speciesName);
   sectionOne.appendChild(scienceName);
+  sectionOne.appendChild(nutrition);
+
+  var imageDiv = document.createElement('div');
+  imageDiv.className = 'fish-info-image';
+  var image = document.createElement('img');
+  image.className = 'species-image';
+  image.src = fish['Species Illustration Photo'];
+
+  imageDiv.appendChild(image);
+
+  var quoteDiv = document.createElement('div');
+  quoteDiv.className = 'fish-info-description';
+  var description = document.createElement('p');
+  description.textContent = fish.Quote;
+  quoteDiv.appendChild(description);
+
+  sectionTwo.appendChild(imageDiv);
+  sectionTwo.appendChild(quoteDiv);
 
   fishInfoContainer.appendChild(sectionOne);
+  fishInfoContainer.appendChild(sectionTwo);
 
   fishInfoContainer.className = 'fish-info-container';
   searchResultTree.className = 'search-result-tree hidden';
