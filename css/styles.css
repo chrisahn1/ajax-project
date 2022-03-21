@@ -71,7 +71,7 @@ img {
   object-fit: scale-down;
 }
 
-ul {
+.results {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -83,16 +83,31 @@ ul {
   width: 100%;
 }
 
-li {
-  display: inline-block;
-  text-align: center;
+.results.hidden {
+  display: none;
 }
 
+/* li {
+  display: inline-block;
+  text-align: center;
+} */
+
 .species-box {
+  display: inline-block;
+  text-align: center;
   background-color: #cad3d2;
   border-radius: 5px;
   border-width: 10px;
   width: 25%;
+  box-shadow: 5px 5px 5px gray;
+  cursor: pointer;
+
+  /* transform: scale(1); */
+  transition: 0.25s;
+}
+
+.species-box:hover {
+  transform: scale(1.1);
 }
 
 .species-image {
@@ -103,11 +118,71 @@ li {
   width: 80%;
   padding: 10px;
   background-color: white;
+  box-shadow: 5px 5px 5px gray;
 }
 
-.search-result-tree {
+/* .search-result-tree {
   margin: 0 auto;
   padding: 0 1rem;
+} */
+
+.search-result-tree.hidden {
+  display: none;
+}
+
+.fish-info-container {
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1000px;
+}
+
+.fish-info-container.hidden {
+  display: none;
+}
+
+.section-one {
+  text-align: center;
+}
+
+.fish-list {
+  width: 40%;
+  margin: 5px;
+  display: inline-block;
+  text-align: center;
+  background-color: #cad3d2;
+  border-radius: 5px;
+  border-width: 10px;
+  box-shadow: 5px 5px 5px gray;
+}
+
+.fish-info-image {
+  width: 100%;
+}
+
+.section-two-a,
+.section-two-b {
+  list-style-type: none;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1000px;
+}
+
+/* .section-two-a {
+  background-color: cadetblue;
+}
+
+.section-two-b {
+  background-color: cornflowerblue;
+} */
+
+.section-four {
+  text-align: center;
 }
 
 @media screen and (min-width: 320px) {
@@ -133,7 +208,7 @@ li {
 @media screen and (min-width: 569px) {
   .species-box {
     width: 400px;
-    height: 200px;
+    height: 220px;
     margin: 20px;
   }
 
@@ -145,5 +220,10 @@ li {
     align-items: center;
     padding-top: 20px;
     padding-bottom: 20px;
+  }
+
+  .section-two {
+    display: flex;
+    max-width: 1000px;
   }
 }
