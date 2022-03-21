@@ -2,7 +2,7 @@ var search = document.querySelector('.search-button');
 var input = document.querySelector('#search-results-form').elements;
 // var ul = document.querySelector('.results');
 var searchResultTree = document.querySelector('.search-result-tree');
-// var fishInfoContainer = document.querySelector('.fish-info-container');
+var fishInfoContainer = document.querySelector('.fish-info-container');
 
 search.addEventListener('click', resultSpecies);
 searchResultTree.addEventListener('click', infoSpecies);
@@ -42,6 +42,9 @@ function resultSpecies(event) {
   });
   xhr.send();
   searchResultTree.appendChild(ul);
+
+  fishInfoContainer.className = 'fish-info-container hidden';
+  searchResultTree.className = 'search-result-tree';
   // ul.className = 'results';
 }
 
@@ -74,21 +77,35 @@ function appendList(species) {
   li.appendChild(name);
   li.appendChild(alias);
 
+  // Section 1
   obj['Species Name'] = species['Species Name'];
   obj['Species Illustration Photo'] = species['Species Illustration Photo'].src;
   obj['Scientific Name'] = species['Scientific Name'];
 
   // Section 2
-  // If/Else statements if n/a
-  // Population
-  // Habitat Impacts
-  // Fishing Rate
-  // Bycatch
+  if (typeof species.Population === 'undefined' || species.Population === null) {
+    obj['Environmental Considerations'] = species['Environmental Considerations'];
+  } else {
+    obj.Population = species.Population;
+  }
 
-  // Environmental Considerations
-  // Farming Methods
-  // Feeds
-  // Human Health
+  if (typeof species['Habitat Impacts'] === 'undefined' || species['Habitat Impacts'] === null) {
+    obj['Farming Methods'] = species['Farming Methods'];
+  } else {
+    obj['Habitat Impacts'] = species['Habitat Impacts'];
+  }
+
+  if (typeof species['Fishing Rate'] === 'undefined' || species['Fishing Rate'] === null) {
+    obj.Feeds = species.Feeds;
+  } else {
+    obj['Fishing Rate'] = species['Fishing Rate'];
+  }
+
+  if (typeof species.Bycatch === 'undefined' || species.Bycatch === null) {
+    obj['Human Health'] = species['Human Health'];
+  } else {
+    obj.Bycatch = species.Bycatch;
+  }
 
   // Section 3
   obj.Availability = species.Availability;
@@ -97,10 +114,15 @@ function appendList(species) {
   obj['Health Benefits'] = species['Health Benefits'];
 
   // Section 4
-  // If/Else Fishery Management or Management
-  // Physical Description
-  // Biology
-  // Research
+  if (typeof species['Fishery Management'] === 'undefined' || species['Fishery Management'] === null) {
+    obj.Management = species.Management;
+  } else {
+    obj['Fishery Management'] = species['Fishery Management'];
+  }
+
+  obj['Physical Description'] = species['Physical Description'];
+  obj.Biology = species.Biology;
+  obj.Research = species.Research;
 
   nutrition.Servings = species.Servings;
   nutrition['Serving Weight'] = species['Serving Weight'];
@@ -108,7 +130,6 @@ function appendList(species) {
   nutrition.Protein = species.Protein;
   nutrition['Fat, Total'] = species['Fat, Total'];
   nutrition['Saturated Fatty Acids, Total'] = species['Saturated Fatty Acids, Total'];
-  nutrition.Carbohydrates = species.Carbohydrates;
   nutrition['Sugars, Total'] = species['Sugars, Total'];
   nutrition['Fiber, Total Dietary'] = species['Fiber, Total Dietary'];
   nutrition.Cholesterol = species.Cholesterol;
@@ -124,7 +145,21 @@ function appendList(species) {
 
 function infoSpecies(event) {
   event.preventDefault();
+
+  while (fishInfoContainer.firstElementChild) {
+    fishInfoContainer.firstElementChild.remove();
+  }
+
   // ul.className = 'results hidden';
+
+  var fish = {};
+
+  for (var i = 0; i < data.entries.length; i++) {
+    if (event.target.closest('.species-box').id === data.entries[i]['Species Name']) {
+      fish = data.entries[i];
+      break;
+    }
+  }
 
   // console.log(event.target.closest('.species-box').id);
   // console.log(data.entries);
@@ -153,4 +188,18 @@ function infoSpecies(event) {
   sectionFourth2.setAttribute('class', 'section-fourth');
   sectionFourth3.setAttribute('class', 'section-fourth');
   sectionFourth4.setAttribute('class', 'section-fourth');
+
+  var speciesName = document.createElement('p');
+  speciesName.textContent = fish['Species Name'];
+
+  var scienceName = document.createElement('p');
+  scienceName.textContent = fish['Scientific Name'];
+
+  sectionOne.appendChild(speciesName);
+  sectionOne.appendChild(scienceName);
+
+  fishInfoContainer.appendChild(sectionOne);
+
+  fishInfoContainer.className = 'fish-info-container';
+  searchResultTree.className = 'search-result-tree hidden';
 }
