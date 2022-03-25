@@ -14,6 +14,8 @@ var box = document.querySelector('.box');
 // nutritionButton.addEventListener('click', nutritionModal);
 exitButton.addEventListener('click', exitNutritionModal);
 
+var nutritionalFacts = document.querySelector('.nutritional-facts');
+
 function resultSpecies(event) {
   event.preventDefault();
 
@@ -158,6 +160,10 @@ function infoSpecies(event) {
     fishInfoContainer.firstElementChild.remove();
   }
 
+  while (nutritionalFacts.firstElementChild) {
+    nutritionalFacts.firstElementChild.remove();
+  }
+
   var fish = {};
 
   for (var i = 0; i < data.entries.length; i++) {
@@ -191,6 +197,9 @@ function infoSpecies(event) {
   nutritionButton.textContent = 'Nutrition';
 
   nutritionButton.addEventListener('click', nutritionModal);
+
+  // Nutritional Facts
+  nutritionCreate(fish);
 
   sectionOne.appendChild(speciesName);
   sectionOne.appendChild(scienceName);
@@ -359,4 +368,106 @@ function nutritionModal(event) {
 function exitNutritionModal(event) {
   search.disabled = false;
   box.className = 'box closed';
+}
+
+function nutritionCreate(fish) {
+  var servingsDiv = document.createElement('div');
+  servingsDiv.className = 'nutrition-attribute';
+  var servings = document.createElement('h3');
+  servings.textContent = 'SERVINGS';
+  var servingsAmount = document.createElement('p');
+  servingsAmount.textContent = fish.Nutrition.Servings;
+  servingsDiv.appendChild(servings);
+  servingsDiv.appendChild(servingsAmount);
+  nutritionalFacts.appendChild(servingsDiv);
+
+  var servingWeightDiv = document.createElement('div');
+  servingWeightDiv.className = 'nutrition-attribute';
+  var servingWeight = document.createElement('h3');
+  servingWeight.textContent = 'SERVING WEIGHT';
+  var servingWeightAmount = document.createElement('p');
+  servingWeightAmount.textContent = fish.Nutrition['Serving Weight'];
+  servingWeightDiv.appendChild(servingWeight);
+  servingWeightDiv.appendChild(servingWeightAmount);
+  nutritionalFacts.appendChild(servingWeightDiv);
+
+  var caloriesDiv = document.createElement('div');
+  caloriesDiv.className = 'nutrition-attribute';
+  var calories = document.createElement('h3');
+  calories.textContent = 'CALORIES';
+  var caloriesAmount = document.createElement('p');
+  caloriesAmount.textContent = fish.Nutrition.Calories;
+  caloriesDiv.appendChild(calories);
+  caloriesDiv.appendChild(caloriesAmount);
+  nutritionalFacts.appendChild(caloriesDiv);
+
+  var proteinDiv = document.createElement('div');
+  proteinDiv.className = 'nutrition-attribute';
+  var protein = document.createElement('h3');
+  protein.textContent = 'PROTEIN';
+  var proteinAmount = document.createElement('p');
+  proteinAmount.textContent = fish.Nutrition.Protein;
+  proteinDiv.appendChild(protein);
+  proteinDiv.appendChild(proteinAmount);
+  nutritionalFacts.appendChild(proteinDiv);
+
+  var fatDiv = document.createElement('div');
+  fatDiv.className = 'nutrition-attribute';
+  var fat = document.createElement('h3');
+  fat.textContent = 'FAT, TOTAL';
+  var fatAmount = document.createElement('p');
+  fatAmount.textContent = fish.Nutrition['Fat, Total'];
+  fatDiv.appendChild(fat);
+  fatDiv.appendChild(fatAmount);
+  nutritionalFacts.appendChild(fatDiv);
+
+  var acidDiv = document.createElement('div');
+  acidDiv.className = 'nutrition-attribute';
+  var acid = document.createElement('h3');
+  acid.textContent = 'SATURATED FATTY ACIDS, TOTAL';
+  var acidAmount = document.createElement('p');
+  acidAmount.textContent = fish.Nutrition['Saturated Fatty Acids, Total'];
+  acidDiv.appendChild(acid);
+  acidDiv.appendChild(acidAmount);
+  nutritionalFacts.appendChild(acidDiv);
+
+  var sugarDiv = document.createElement('div');
+  sugarDiv.className = 'nutrition-attribute';
+  var sugar = document.createElement('h3');
+  sugar.textContent = 'SUGARS, TOTAL';
+  var sugarAmount = document.createElement('p');
+  sugarAmount.textContent = fish.Nutrition['Sugars, Total'];
+  sugarDiv.appendChild(sugar);
+  sugarDiv.appendChild(sugar);
+  nutritionalFacts.appendChild(sugarDiv);
+
+  var fiberDiv = document.createElement('div');
+  fiberDiv.className = 'nutrition-attribute';
+  var fiber = document.createElement('h3');
+  fiber.textContent = 'FIBER, TOTAL DIETARY';
+  var fiberAmount = document.createElement('p');
+  fiberAmount.textContent = fish.Nutrition['Fiber, Total Dietary'];
+  fiberDiv.appendChild(fiber);
+  fiberDiv.appendChild(fiberAmount);
+  nutritionalFacts.appendChild(fiberDiv);
+
+  var cholesterolDiv = document.createElement('div');
+  cholesterolDiv.className = 'nutrition-attribute';
+  var cholesterol = document.createElement('h3');
+  cholesterol.textContent = 'CHOLESTEROL';
+  var cholesterolAmount = document.createElement('p');
+  cholesterolAmount.textContent = fish.Nutrition.Cholesterol;
+  cholesterolDiv.appendChild(cholesterol);
+  cholesterolDiv.appendChild(cholesterolAmount);
+  nutritionalFacts.appendChild(cholesterolDiv);
+
+  var sodiumDiv = document.createElement('div');
+  sodiumDiv.className = 'nutrition-attribute';
+  var sodium = document.createElement('h3');
+  sodium.textContent = 'SODIUM';
+  var sodiumAmount = document.createElement('p');
+  sodiumAmount.textContent = fish.Nutrition.Sodium;
+  sodiumDiv.appendChild(sodium);
+  sodiumDiv.appendChild(sodiumAmount);
+  nutritionalFacts.appendChild(sodiumDiv);
 }
