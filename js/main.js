@@ -7,6 +7,13 @@ var fishInfoContainer = document.querySelector('.fish-info-container');
 search.addEventListener('click', resultSpecies);
 searchResultTree.addEventListener('click', infoSpecies);
 
+// var nutritionButton = document.querySelector('.nutrition-button');
+var exitButton = document.querySelector('.cancel');
+var box = document.querySelector('.box');
+
+// nutritionButton.addEventListener('click', nutritionModal);
+exitButton.addEventListener('click', exitNutritionModal);
+
 function resultSpecies(event) {
   event.preventDefault();
 
@@ -168,16 +175,10 @@ function infoSpecies(event) {
   var sectionThree = document.createElement('section');
   var sectionFour = document.createElement('section');
 
-  var sectionHalf1 = document.createElement('div');
-  var sectionHalf2 = document.createElement('div');
-
   sectionOne.setAttribute('class', 'section-one');
   sectionTwo.setAttribute('class', 'section-two');
   sectionThree.setAttribute('class', 'section-three');
   sectionFour.setAttribute('class', 'section-four');
-
-  sectionHalf1.setAttribute('class', 'section-half');
-  sectionHalf2.setAttribute('class', 'section-half');
 
   var speciesName = document.createElement('h3');
   speciesName.textContent = fish['Species Name'];
@@ -185,12 +186,15 @@ function infoSpecies(event) {
   var scienceName = document.createElement('h3');
   scienceName.textContent = fish['Scientific Name'];
 
-  var nutrition = document.createElement('a');
-  nutrition.textContent = 'Nutrition';
+  var nutritionButton = document.createElement('button');
+  nutritionButton.className = 'nutrition-button';
+  nutritionButton.textContent = 'Nutrition';
+
+  nutritionButton.addEventListener('click', nutritionModal);
 
   sectionOne.appendChild(speciesName);
   sectionOne.appendChild(scienceName);
-  sectionOne.appendChild(nutrition);
+  sectionOne.appendChild(nutritionButton);
 
   var imageDiv = document.createElement('div');
   imageDiv.className = 'fish-info-image';
@@ -345,4 +349,14 @@ function infoSpecies(event) {
 
   fishInfoContainer.className = 'fish-info-container';
   searchResultTree.className = 'search-result-tree hidden';
+}
+
+function nutritionModal(event) {
+  search.disabled = true;
+  box.className = 'box open';
+}
+
+function exitNutritionModal(event) {
+  search.disabled = false;
+  box.className = 'box closed';
 }
