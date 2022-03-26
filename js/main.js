@@ -8,7 +8,7 @@ search.addEventListener('click', resultSpecies);
 searchResultTree.addEventListener('click', infoSpecies);
 
 // var nutritionButton = document.querySelector('.nutrition-button');
-var exitButton = document.querySelector('.cancel');
+var exitButton = document.querySelector('.close-button');
 var box = document.querySelector('.box');
 
 // nutritionButton.addEventListener('click', nutritionModal);
