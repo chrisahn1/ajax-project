@@ -1,19 +1,17 @@
 var search = document.querySelector('.search-button');
 var input = document.querySelector('#search-results-form').elements;
-// var ul = document.querySelector('.results');
+
 var searchResultTree = document.querySelector('.search-result-tree');
 var fishInfoContainer = document.querySelector('.fish-info-container');
 
 search.addEventListener('click', resultSpecies);
 searchResultTree.addEventListener('click', infoSpecies);
 
-// var nutritionButton = document.querySelector('.nutrition-button');
 var exitNutrition = document.querySelector('.close-button-nutrition');
 var exitGallery = document.querySelector('.close-button-gallery');
 var boxNutrition = document.querySelector('.box-nutrition');
 var boxGallery = document.querySelector('.box-gallery');
 
-// nutritionButton.addEventListener('click', nutritionModal);
 exitNutrition.addEventListener('click', exitModalNutrition);
 exitGallery.addEventListener('click', exitModalGallery);
 
@@ -52,8 +50,17 @@ function resultSpecies(event) {
       }
     }
 
+    if (ul.hasChildNodes() === false) {
+      var li = document.createElement('li');
+      var h2 = document.createElement('h2');
+      h2.textContent = 'No Results Found';
+      li.appendChild(h2);
+      ul.appendChild(li);
+    }
+
   });
   xhr.send();
+
   searchResultTree.appendChild(ul);
 
   fishInfoContainer.className = 'fish-info-container hidden';
@@ -177,9 +184,6 @@ function infoSpecies(event) {
       break;
     }
   }
-
-  // console.log(event.target.closest('.species-box').id);
-  // console.log(data.entries);
 
   var sectionOne = document.createElement('section');
   var sectionTwo = document.createElement('section');
@@ -331,15 +335,9 @@ function infoSpecies(event) {
 
   galleryCreate(fish.ImageGallery);
 
-  // sectionFour.appendChild(article1);
-  // sectionFour.appendChild(article2);
-  // sectionFour.appendChild(article3);
-  // sectionFour.appendChild(article4);
-
   fishInfoContainer.appendChild(sectionOne);
   fishInfoContainer.appendChild(sectionTwo);
   fishInfoContainer.appendChild(sectionThree);
-  // fishInfoContainer.appendChild(sectionFour);
 
   fishInfoContainer.className = 'fish-info-container';
   searchResultTree.className = 'search-result-tree hidden';
@@ -369,6 +367,7 @@ function nutritionCreate(fish) {
   var servingsDiv = document.createElement('div');
   servingsDiv.className = 'nutrition-attribute';
   var servings = document.createElement('h3');
+  servings.className = 'nutrition-size';
   servings.textContent = 'SERVINGS';
   var servingsAmount = document.createElement('p');
   servingsAmount.textContent = fish.Nutrition.Servings;
@@ -379,6 +378,7 @@ function nutritionCreate(fish) {
   var servingWeightDiv = document.createElement('div');
   servingWeightDiv.className = 'nutrition-attribute';
   var servingWeight = document.createElement('h3');
+  servingWeight.className = 'nutrition-size';
   servingWeight.textContent = 'SERVING WEIGHT';
   var servingWeightAmount = document.createElement('p');
   servingWeightAmount.textContent = fish.Nutrition['Serving Weight'];
@@ -389,6 +389,7 @@ function nutritionCreate(fish) {
   var caloriesDiv = document.createElement('div');
   caloriesDiv.className = 'nutrition-attribute';
   var calories = document.createElement('h3');
+  calories.className = 'nutrition-size';
   calories.textContent = 'CALORIES';
   var caloriesAmount = document.createElement('p');
   caloriesAmount.textContent = fish.Nutrition.Calories;
@@ -399,6 +400,7 @@ function nutritionCreate(fish) {
   var proteinDiv = document.createElement('div');
   proteinDiv.className = 'nutrition-attribute';
   var protein = document.createElement('h3');
+  protein.className = 'nutrition-size';
   protein.textContent = 'PROTEIN';
   var proteinAmount = document.createElement('p');
   proteinAmount.textContent = fish.Nutrition.Protein;
@@ -409,6 +411,7 @@ function nutritionCreate(fish) {
   var fatDiv = document.createElement('div');
   fatDiv.className = 'nutrition-attribute';
   var fat = document.createElement('h3');
+  fat.className = 'nutrition-size';
   fat.textContent = 'FAT, TOTAL';
   var fatAmount = document.createElement('p');
   fatAmount.textContent = fish.Nutrition['Fat, Total'];
@@ -419,6 +422,7 @@ function nutritionCreate(fish) {
   var acidDiv = document.createElement('div');
   acidDiv.className = 'nutrition-attribute';
   var acid = document.createElement('h3');
+  acid.className = 'nutrition-size';
   acid.textContent = 'SATURATED FATTY ACIDS, TOTAL';
   var acidAmount = document.createElement('p');
   acidAmount.textContent = fish.Nutrition['Saturated Fatty Acids, Total'];
@@ -429,6 +433,7 @@ function nutritionCreate(fish) {
   var sugarDiv = document.createElement('div');
   sugarDiv.className = 'nutrition-attribute';
   var sugar = document.createElement('h3');
+  sugar.className = 'nutrition-size';
   sugar.textContent = 'SUGARS, TOTAL';
   var sugarAmount = document.createElement('p');
   sugarAmount.textContent = fish.Nutrition['Sugars, Total'];
@@ -439,6 +444,7 @@ function nutritionCreate(fish) {
   var fiberDiv = document.createElement('div');
   fiberDiv.className = 'nutrition-attribute';
   var fiber = document.createElement('h3');
+  fiber.className = 'nutrition-size';
   fiber.textContent = 'FIBER, TOTAL DIETARY';
   var fiberAmount = document.createElement('p');
   fiberAmount.textContent = fish.Nutrition['Fiber, Total Dietary'];
@@ -449,6 +455,7 @@ function nutritionCreate(fish) {
   var cholesterolDiv = document.createElement('div');
   cholesterolDiv.className = 'nutrition-attribute';
   var cholesterol = document.createElement('h3');
+  cholesterol.className = 'nutrition-size';
   cholesterol.textContent = 'CHOLESTEROL';
   var cholesterolAmount = document.createElement('p');
   cholesterolAmount.textContent = fish.Nutrition.Cholesterol;
@@ -459,6 +466,7 @@ function nutritionCreate(fish) {
   var sodiumDiv = document.createElement('div');
   sodiumDiv.className = 'nutrition-attribute';
   var sodium = document.createElement('h3');
+  sodium.className = 'nutrition-size';
   sodium.textContent = 'SODIUM';
   var sodiumAmount = document.createElement('p');
   sodiumAmount.textContent = fish.Nutrition.Sodium;
