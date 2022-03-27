@@ -258,7 +258,8 @@ img {
 
   /* background-color: white;
   box-shadow: 5px 5px 5px gray; */
-  list-style-type: none;
+
+  /* list-style-type: none;
   margin: 0;
   padding: 0;
   display: flex;
@@ -268,6 +269,11 @@ img {
   margin-right: auto;
   width: 60%;
   background-color: white;
+  box-shadow: 5px 5px 5px gray; */
+  max-width: 50%;
+
+  /* height: auto; */
+  padding: 10px;
   box-shadow: 5px 5px 5px gray;
 }
 
