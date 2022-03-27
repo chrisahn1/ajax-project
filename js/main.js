@@ -8,13 +8,17 @@ search.addEventListener('click', resultSpecies);
 searchResultTree.addEventListener('click', infoSpecies);
 
 // var nutritionButton = document.querySelector('.nutrition-button');
-var exitButton = document.querySelector('.close-button');
-var box = document.querySelector('.box');
+var exitNutrition = document.querySelector('.close-button-nutrition');
+var exitGallery = document.querySelector('.close-button-gallery');
+var boxNutrition = document.querySelector('.box-nutrition');
+var boxGallery = document.querySelector('.box-gallery');
 
 // nutritionButton.addEventListener('click', nutritionModal);
-exitButton.addEventListener('click', exitNutritionModal);
+exitNutrition.addEventListener('click', exitModalNutrition);
+exitGallery.addEventListener('click', exitModalGallery);
 
 var nutritionalFacts = document.querySelector('.nutritional-facts');
+var photoGallery = document.querySelector('.photo-gallery');
 
 function resultSpecies(event) {
   event.preventDefault();
@@ -61,6 +65,7 @@ function appendList(species) {
   event.preventDefault();
   var obj = {};
   var nutrition = {};
+  var imageGallery = [];
 
   var li = document.createElement('li');
   li.setAttribute('class', 'species-box');
@@ -124,15 +129,11 @@ function appendList(species) {
   obj['Health Benefits'] = species['Health Benefits'];
 
   // Section 4
-  if (typeof species['Fishery Management'] === 'undefined' || species['Fishery Management'] === null) {
-    obj['Fishery Management'] = 'n/a';
-  } else {
-    obj['Fishery Management'] = species['Fishery Management'];
+  for (var i = 0; i < species['Image Gallery'].length; i++) {
+    imageGallery.push(species['Image Gallery'][0].src);
   }
 
-  obj['Physical Description'] = species['Physical Description'];
-  obj.Biology = species.Biology;
-  obj.Research = species.Research;
+  obj.ImageGallery = imageGallery;
 
   nutrition.Servings = species.Servings;
   nutrition['Serving Weight'] = species['Serving Weight'];
@@ -164,6 +165,10 @@ function infoSpecies(event) {
     nutritionalFacts.firstElementChild.remove();
   }
 
+  while (photoGallery.firstElementChild) {
+    photoGallery.firstElementChild.remove();
+  }
+
   var fish = {};
 
   for (var i = 0; i < data.entries.length; i++) {
@@ -186,24 +191,36 @@ function infoSpecies(event) {
   sectionThree.setAttribute('class', 'section-three');
   sectionFour.setAttribute('class', 'section-four');
 
-  var speciesName = document.createElement('h3');
+  var speciesName = document.createElement('h2');
   speciesName.textContent = fish['Species Name'];
 
-  var scienceName = document.createElement('h3');
+  var scienceName = document.createElement('h2');
+  scienceName.className = 'scientific-name';
   scienceName.textContent = fish['Scientific Name'];
+
+  var buttons = document.createElement('div');
+  buttons.className = 'button-section';
 
   var nutritionButton = document.createElement('button');
   nutritionButton.className = 'nutrition-button';
   nutritionButton.textContent = 'Nutrition';
 
+  var galleryButton = document.createElement('button');
+  galleryButton.className = 'gallery-button';
+  galleryButton.textContent = 'Gallery';
+
+  buttons.appendChild(nutritionButton);
+  buttons.appendChild(galleryButton);
+
   nutritionButton.addEventListener('click', nutritionModal);
+  galleryButton.addEventListener('click', galleryModal);
 
   // Nutritional Facts
   nutritionCreate(fish);
 
   sectionOne.appendChild(speciesName);
   sectionOne.appendChild(scienceName);
-  sectionOne.appendChild(nutritionButton);
+  sectionOne.appendChild(buttons);
 
   var imageDiv = document.createElement('div');
   imageDiv.className = 'fish-info-image';
@@ -230,7 +247,7 @@ function infoSpecies(event) {
   // First Half of UL
   var li11 = document.createElement('li');
   li11.className = 'fish-list';
-  var h211 = document.createElement('h2');
+  var h211 = document.createElement('h3');
   var p11 = document.createElement('p');
   h211.textContent = 'Population';
   p11.textContent = fish.Population;
@@ -240,7 +257,7 @@ function infoSpecies(event) {
 
   var li12 = document.createElement('li');
   li12.className = 'fish-list';
-  var h212 = document.createElement('h2');
+  var h212 = document.createElement('h3');
   var p12 = document.createElement('p');
   h212.textContent = 'Habitat Impacts';
   p12.textContent = fish['Habitat Impacts'];
@@ -250,7 +267,7 @@ function infoSpecies(event) {
 
   var li13 = document.createElement('li');
   li13.className = 'fish-list';
-  var h213 = document.createElement('h2');
+  var h213 = document.createElement('h3');
   var p13 = document.createElement('p');
   h213.textContent = 'Fishing Rate';
   p13.textContent = fish['Fishing Rate'];
@@ -260,7 +277,7 @@ function infoSpecies(event) {
 
   var li14 = document.createElement('li');
   li14.className = 'fish-list';
-  var h214 = document.createElement('h2');
+  var h214 = document.createElement('h3');
   var p14 = document.createElement('p');
   h214.textContent = 'Bycatch';
   p14.textContent = fish.Bycatch;
@@ -271,7 +288,7 @@ function infoSpecies(event) {
   // Second Half of UL
   var li21 = document.createElement('li');
   li21.className = 'fish-list';
-  var h221 = document.createElement('h2');
+  var h221 = document.createElement('h3');
   var p21 = document.createElement('p');
   h221.textContent = 'Availability';
   p21.textContent = fish.Availability;
@@ -281,7 +298,7 @@ function infoSpecies(event) {
 
   var li22 = document.createElement('li');
   li22.className = 'fish-list';
-  var h222 = document.createElement('h2');
+  var h222 = document.createElement('h3');
   var p22 = document.createElement('p');
   h222.textContent = 'Taste';
   p22.textContent = fish.Taste;
@@ -291,7 +308,7 @@ function infoSpecies(event) {
 
   var li23 = document.createElement('li');
   li23.className = 'fish-list';
-  var h223 = document.createElement('h2');
+  var h223 = document.createElement('h3');
   var p23 = document.createElement('p');
   h223.textContent = 'Source';
   p23.textContent = fish.Source;
@@ -301,7 +318,7 @@ function infoSpecies(event) {
 
   var li24 = document.createElement('li');
   li24.className = 'fish-list';
-  var h224 = document.createElement('h2');
+  var h224 = document.createElement('h3');
   var p24 = document.createElement('p');
   h224.textContent = 'Health Benefits';
   p24.textContent = fish['Health Benefits'];
@@ -312,49 +329,17 @@ function infoSpecies(event) {
   sectionThree.appendChild(ul1);
   sectionThree.appendChild(ul2);
 
-  var article1 = document.createElement('article');
-  var article2 = document.createElement('article');
-  var article3 = document.createElement('article');
-  var article4 = document.createElement('article');
+  galleryCreate(fish.ImageGallery);
 
-  var article1h = document.createElement('h2');
-  var article2h = document.createElement('h2');
-  var article3h = document.createElement('h2');
-  var article4h = document.createElement('h2');
-
-  // var article1section = document.createElement('section');
-  // article1section.className = 'details';
-  // var article2section = document.createElement('section');
-  // article2section.className = 'details';
-  // var article3section = document.createElement('section');
-  // article3section.className = 'details';
-  // var article4section = document.createElement('section');
-  // article4section.className = 'details';
-
-  article1h.textContent = 'Fishery Management';
-  article2h.textContent = 'Physical Description';
-  article3h.textContent = 'Biology';
-  article4h.textContent = 'Research';
-
-  // 'Fishery Management'
-  // 'Physical Description'
-  // Biology
-  // Research
-
-  article1.appendChild(article1h);
-  article2.appendChild(article2h);
-  article3.appendChild(article3h);
-  article4.appendChild(article4h);
-
-  sectionFour.appendChild(article1);
-  sectionFour.appendChild(article2);
-  sectionFour.appendChild(article3);
-  sectionFour.appendChild(article4);
+  // sectionFour.appendChild(article1);
+  // sectionFour.appendChild(article2);
+  // sectionFour.appendChild(article3);
+  // sectionFour.appendChild(article4);
 
   fishInfoContainer.appendChild(sectionOne);
   fishInfoContainer.appendChild(sectionTwo);
   fishInfoContainer.appendChild(sectionThree);
-  fishInfoContainer.appendChild(sectionFour);
+  // fishInfoContainer.appendChild(sectionFour);
 
   fishInfoContainer.className = 'fish-info-container';
   searchResultTree.className = 'search-result-tree hidden';
@@ -362,12 +347,22 @@ function infoSpecies(event) {
 
 function nutritionModal(event) {
   search.disabled = true;
-  box.className = 'box open';
+  boxNutrition.className = 'box-nutrition open';
 }
 
-function exitNutritionModal(event) {
+function exitModalNutrition(event) {
   search.disabled = false;
-  box.className = 'box closed';
+  boxNutrition.className = 'box-nutrition closed';
+}
+
+function galleryModal(event) {
+  search.disabled = true;
+  boxGallery.className = 'box-gallery open';
+}
+
+function exitModalGallery(event) {
+  search.disabled = false;
+  boxGallery.className = 'box-gallery closed';
 }
 
 function nutritionCreate(fish) {
@@ -470,4 +465,16 @@ function nutritionCreate(fish) {
   sodiumDiv.appendChild(sodium);
   sodiumDiv.appendChild(sodiumAmount);
   nutritionalFacts.appendChild(sodiumDiv);
+}
+
+function galleryCreate(gallery) {
+  for (var i = 0; i < gallery.length; i++) {
+    var div = document.createElement('div');
+    var image = document.createElement('img');
+    image.className = 'fish-info-image';
+    image.src = gallery[i];
+
+    div.appendChild(image);
+    photoGallery.appendChild(div);
+  }
 }

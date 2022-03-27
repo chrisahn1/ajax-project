@@ -160,6 +160,10 @@ img {
   width: 100%;
 }
 
+.scientific-name {
+  font-style: italic;
+}
+
 .section-two-a,
 .section-two-b {
   list-style-type: none;
@@ -191,22 +195,32 @@ img {
   margin-right: 30px;
 }
 
-.close-button {
+.gallery-button {
+  background-color: orangered;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.close-button-nutrition,
+.close-button-gallery {
   background-color: red;
   margin-left: 30px;
   margin-right: 30px;
 }
 
-.box {
+.box-nutrition,
+.box-gallery {
   justify-content: center;
   text-align: center;
 }
 
-.box.closed {
+.box-nutrition.closed,
+.box-gallery.closed {
   display: none;
 }
 
-.box.open {
+.box-nutrition.open,
+.box-gallery.open {
   position: fixed;
   z-index: 1;
   left: 0;
@@ -216,7 +230,8 @@ img {
   background-color: rgba(0, 0, 0, 0.432);
 }
 
-.modal {
+.modal.nutrition,
+.modal.gallery {
   background-color: white;
   margin: 13vh auto;
   padding: 20px;
@@ -271,5 +286,9 @@ img {
   .section-two {
     display: flex;
     max-width: 1000px;
+  }
+
+  .buttons {
+    display: flex;
   }
 }
