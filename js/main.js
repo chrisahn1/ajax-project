@@ -130,7 +130,7 @@ function appendList(species) {
 
   // Section 4
   for (var i = 0; i < species['Image Gallery'].length; i++) {
-    imageGallery.push(species['Image Gallery'][0].src);
+    imageGallery.push(species['Image Gallery'][i].src);
   }
 
   obj.ImageGallery = imageGallery;
@@ -469,12 +469,9 @@ function nutritionCreate(fish) {
 
 function galleryCreate(gallery) {
   for (var i = 0; i < gallery.length; i++) {
-    var div = document.createElement('div');
     var image = document.createElement('img');
-    image.className = 'fish-info-image';
+    image.className = 'gallery-image';
     image.src = gallery[i];
-
-    div.appendChild(image);
-    photoGallery.appendChild(div);
+    photoGallery.appendChild(image);
   }
 }

@@ -240,6 +240,37 @@ img {
   height: 80%;
 }
 
+.photo-gallery {
+  /* display: block; */
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.gallery-image {
+  /* justify-content: center;
+
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%; */
+
+  /* padding: 10px; */
+
+  /* background-color: white;
+  box-shadow: 5px 5px 5px gray; */
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+  background-color: white;
+  box-shadow: 5px 5px 5px gray;
+}
+
 .nutrition-attribute {
   display: flex;
   justify-content: space-between;
