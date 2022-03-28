@@ -1,33 +1,47 @@
+// Search Button
 var search = document.querySelector('.search-button');
+
+// Input Feature
 var input = document.querySelector('#search-results-form').elements;
 
+// Tree that produces results after clicking the search button
 var searchResultTree = document.querySelector('.search-result-tree');
+
+// When a fish icon is clicked, the page will switch to another page
+// containing more detailed information
 var fishInfoContainer = document.querySelector('.fish-info-container');
 
 search.addEventListener('click', resultSpecies);
 searchResultTree.addEventListener('click', infoSpecies);
 
+// Exit button inside the modals
 var exitNutrition = document.querySelector('.close-button-nutrition');
 var exitGallery = document.querySelector('.close-button-gallery');
+
+// Modals of Nutrition and Gallery that includes the shadow background
 var boxNutrition = document.querySelector('.box-nutrition');
 var boxGallery = document.querySelector('.box-gallery');
 
 exitNutrition.addEventListener('click', exitModalNutrition);
 exitGallery.addEventListener('click', exitModalGallery);
 
+// Modal boxes without the shadow background
 var nutritionalFacts = document.querySelector('.nutritional-facts');
 var photoGallery = document.querySelector('.photo-gallery');
 
 function resultSpecies(event) {
   event.preventDefault();
 
+  // Remove all children of the search results tree
   while (searchResultTree.firstElementChild) {
     searchResultTree.firstElementChild.remove();
   }
 
+  // Create new tree for UL
   var ul = document.createElement('ul');
   ul.className = 'results';
 
+  // FishWatch API
   var targetUrl = encodeURIComponent('https://www.fishwatch.gov/api/species');
 
   var xhr = new XMLHttpRequest();
@@ -36,7 +50,11 @@ function resultSpecies(event) {
   xhr.responseType = 'json';
 
   xhr.addEventListener('load', function () {
+    // Holds a temporary Fish name in case user inputs
+    // a part of a name or full name
     var arr = [];
+
+    // Refresh data.entries
     data.entries = [];
     for (var i = 0; i < xhr.response.length; i++) {
       arr = xhr.response[i]['Species Name'].split(' ');
@@ -65,15 +83,21 @@ function resultSpecies(event) {
 
   fishInfoContainer.className = 'fish-info-container hidden';
   searchResultTree.className = 'search-result-tree';
-  // ul.className = 'results';
 }
 
 function appendList(species) {
   event.preventDefault();
+
+  // Holds the entire list of fish objects
   var obj = {};
+
+  // Holds nutrition object list of fish
   var nutrition = {};
+
+  // Holds an array of fish images
   var imageGallery = [];
 
+  // The 'li' will have species name, image and photo
   var li = document.createElement('li');
   li.setAttribute('class', 'species-box');
   li.setAttribute('id', species['Species Name']);
@@ -88,15 +112,10 @@ function appendList(species) {
 
   var name = document.createElement('h3');
   name.setAttribute('class', 'name');
-
   name.textContent = species['Species Name'];
-
-  var alias = document.createElement('a');
-  alias.setAttribute('href', species['Species Aliases'].href);
 
   li.appendChild(image);
   li.appendChild(name);
-  li.appendChild(alias);
 
   // Section 1
   obj['Species Name'] = species['Species Name'];
@@ -148,7 +167,6 @@ function appendList(species) {
   nutrition.Protein = species.Protein;
   nutrition['Fat, Total'] = species['Fat, Total'];
   nutrition['Saturated Fatty Acids, Total'] = species['Saturated Fatty Acids, Total'];
-  nutrition['Sugars, Total'] = species['Sugars, Total'];
   nutrition['Fiber, Total Dietary'] = species['Fiber, Total Dietary'];
   nutrition.Cholesterol = species.Cholesterol;
   nutrition.Sodium = species.Sodium;
@@ -164,6 +182,7 @@ function appendList(species) {
 function infoSpecies(event) {
   event.preventDefault();
 
+  // Clear any remaining information from previous fish
   while (fishInfoContainer.firstElementChild) {
     fishInfoContainer.firstElementChild.remove();
   }
@@ -176,6 +195,7 @@ function infoSpecies(event) {
     photoGallery.firstElementChild.remove();
   }
 
+  // Holds data of the clicked fish that's matched based on id
   var fish = {};
 
   for (var i = 0; i < data.entries.length; i++) {
@@ -185,6 +205,7 @@ function infoSpecies(event) {
     }
   }
 
+  // Sections are divided in the fish-info-container
   var sectionOne = document.createElement('section');
   var sectionTwo = document.createElement('section');
   var sectionThree = document.createElement('section');
@@ -195,6 +216,8 @@ function infoSpecies(event) {
   sectionThree.setAttribute('class', 'section-three');
   sectionFour.setAttribute('class', 'section-four');
 
+  // Section 1: Name, Scientific Name, and Buttons
+  // Name and Scientific Name
   var speciesName = document.createElement('h2');
   speciesName.textContent = fish['Species Name'];
 
@@ -202,9 +225,11 @@ function infoSpecies(event) {
   scienceName.className = 'scientific-name';
   scienceName.textContent = fish['Scientific Name'];
 
+  // Button Section created
   var buttons = document.createElement('div');
   buttons.className = 'button-section';
 
+  // Nutrition and Gallery Buttons
   var nutritionButton = document.createElement('button');
   nutritionButton.className = 'nutrition-button';
   nutritionButton.textContent = 'Nutrition';
@@ -216,6 +241,8 @@ function infoSpecies(event) {
   buttons.appendChild(nutritionButton);
   buttons.appendChild(galleryButton);
 
+  // ***Having the click events here allows us to keep up
+  // ***with the changing dom tree
   nutritionButton.addEventListener('click', nutritionModal);
   galleryButton.addEventListener('click', galleryModal);
 
@@ -226,6 +253,7 @@ function infoSpecies(event) {
   sectionOne.appendChild(scienceName);
   sectionOne.appendChild(buttons);
 
+  // Section 2: Illustration of Fish and Description
   var imageDiv = document.createElement('div');
   imageDiv.className = 'fish-info-image';
   var image = document.createElement('img');
@@ -243,6 +271,7 @@ function infoSpecies(event) {
   sectionTwo.appendChild(imageDiv);
   sectionTwo.appendChild(quoteDiv);
 
+  // Section 3: Contains other field information
   var ul1 = document.createElement('ul');
   ul1.className = 'section-two-a';
   var ul2 = document.createElement('ul');
@@ -333,6 +362,7 @@ function infoSpecies(event) {
   sectionThree.appendChild(ul1);
   sectionThree.appendChild(ul2);
 
+  // Create gallery for gallery modal
   galleryCreate(fish.ImageGallery);
 
   fishInfoContainer.appendChild(sectionOne);
@@ -343,6 +373,7 @@ function infoSpecies(event) {
   searchResultTree.className = 'search-result-tree hidden';
 }
 
+// Exit buttons for both modals functionality
 function nutritionModal(event) {
   search.disabled = true;
   boxNutrition.className = 'box-nutrition open';
@@ -363,6 +394,7 @@ function exitModalGallery(event) {
   boxGallery.className = 'box-gallery closed';
 }
 
+// DOM creation for Nutrition Modal
 function nutritionCreate(fish) {
   var servingsDiv = document.createElement('div');
   servingsDiv.className = 'nutrition-attribute';
@@ -370,6 +402,7 @@ function nutritionCreate(fish) {
   servings.className = 'nutrition-size';
   servings.textContent = 'SERVINGS';
   var servingsAmount = document.createElement('p');
+  servingsAmount.className = 'nutrition-value';
   servingsAmount.textContent = fish.Nutrition.Servings;
   servingsDiv.appendChild(servings);
   servingsDiv.appendChild(servingsAmount);
@@ -381,6 +414,7 @@ function nutritionCreate(fish) {
   servingWeight.className = 'nutrition-size';
   servingWeight.textContent = 'SERVING WEIGHT';
   var servingWeightAmount = document.createElement('p');
+  servingWeightAmount.className = 'nutrition-value';
   servingWeightAmount.textContent = fish.Nutrition['Serving Weight'];
   servingWeightDiv.appendChild(servingWeight);
   servingWeightDiv.appendChild(servingWeightAmount);
@@ -392,6 +426,7 @@ function nutritionCreate(fish) {
   calories.className = 'nutrition-size';
   calories.textContent = 'CALORIES';
   var caloriesAmount = document.createElement('p');
+  caloriesAmount.className = 'nutrition-value';
   caloriesAmount.textContent = fish.Nutrition.Calories;
   caloriesDiv.appendChild(calories);
   caloriesDiv.appendChild(caloriesAmount);
@@ -403,6 +438,7 @@ function nutritionCreate(fish) {
   protein.className = 'nutrition-size';
   protein.textContent = 'PROTEIN';
   var proteinAmount = document.createElement('p');
+  proteinAmount.className = 'nutrition-value';
   proteinAmount.textContent = fish.Nutrition.Protein;
   proteinDiv.appendChild(protein);
   proteinDiv.appendChild(proteinAmount);
@@ -414,6 +450,7 @@ function nutritionCreate(fish) {
   fat.className = 'nutrition-size';
   fat.textContent = 'FAT, TOTAL';
   var fatAmount = document.createElement('p');
+  fatAmount.className = 'nutrition-value';
   fatAmount.textContent = fish.Nutrition['Fat, Total'];
   fatDiv.appendChild(fat);
   fatDiv.appendChild(fatAmount);
@@ -425,21 +462,11 @@ function nutritionCreate(fish) {
   acid.className = 'nutrition-size';
   acid.textContent = 'SATURATED FATTY ACIDS, TOTAL';
   var acidAmount = document.createElement('p');
+  acidAmount.className = 'nutrition-value';
   acidAmount.textContent = fish.Nutrition['Saturated Fatty Acids, Total'];
   acidDiv.appendChild(acid);
   acidDiv.appendChild(acidAmount);
   nutritionalFacts.appendChild(acidDiv);
-
-  var sugarDiv = document.createElement('div');
-  sugarDiv.className = 'nutrition-attribute';
-  var sugar = document.createElement('h3');
-  sugar.className = 'nutrition-size';
-  sugar.textContent = 'SUGARS, TOTAL';
-  var sugarAmount = document.createElement('p');
-  sugarAmount.textContent = fish.Nutrition['Sugars, Total'];
-  sugarDiv.appendChild(sugar);
-  sugarDiv.appendChild(sugar);
-  nutritionalFacts.appendChild(sugarDiv);
 
   var fiberDiv = document.createElement('div');
   fiberDiv.className = 'nutrition-attribute';
@@ -447,6 +474,7 @@ function nutritionCreate(fish) {
   fiber.className = 'nutrition-size';
   fiber.textContent = 'FIBER, TOTAL DIETARY';
   var fiberAmount = document.createElement('p');
+  fiberAmount.className = 'nutrition-value';
   fiberAmount.textContent = fish.Nutrition['Fiber, Total Dietary'];
   fiberDiv.appendChild(fiber);
   fiberDiv.appendChild(fiberAmount);
@@ -458,6 +486,7 @@ function nutritionCreate(fish) {
   cholesterol.className = 'nutrition-size';
   cholesterol.textContent = 'CHOLESTEROL';
   var cholesterolAmount = document.createElement('p');
+  cholesterolAmount.className = 'nutrition-value';
   cholesterolAmount.textContent = fish.Nutrition.Cholesterol;
   cholesterolDiv.appendChild(cholesterol);
   cholesterolDiv.appendChild(cholesterolAmount);
@@ -469,12 +498,14 @@ function nutritionCreate(fish) {
   sodium.className = 'nutrition-size';
   sodium.textContent = 'SODIUM';
   var sodiumAmount = document.createElement('p');
+  sodiumAmount.className = 'nutrition-value';
   sodiumAmount.textContent = fish.Nutrition.Sodium;
   sodiumDiv.appendChild(sodium);
   sodiumDiv.appendChild(sodiumAmount);
   nutritionalFacts.appendChild(sodiumDiv);
 }
 
+// DOM creation for gallery modal
 function galleryCreate(gallery) {
   for (var i = 0; i < gallery.length; i++) {
     var image = document.createElement('img');

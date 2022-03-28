@@ -194,9 +194,8 @@ img {
   z-index: 1;
   left: 0;
   top: 0;
-
-  /* width: 100%;
-  height: 100%; */
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.432);
 }
 
@@ -267,8 +266,9 @@ img {
 
   .modal.nutrition,
   .modal.gallery {
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 85%;
+    padding: 10px;
   }
 
   .nutrition-header,
@@ -276,20 +276,10 @@ img {
     font-size: 12px;
   }
 
-  .nutrition-size {
+  .nutrition-size,
+  .nutrition-value {
     font-size: 10px;
   }
-
-  /* .box-nutrition.open,
-  .box-gallery.open {
-    position: absolute;
-    width: 100%;
-    height: auto;
-  } */
-
-  /* .fish-info-container {
-    position: fixed;
-  } */
 }
 
 @media screen and (min-width: 568px) {
@@ -334,32 +324,51 @@ img {
   .modal.gallery {
     padding: 5px;
     width: 90%;
+  }
+
+  .modal.nutrition {
     height: 90%;
+  }
+
+  .modal.gallery {
+    height: 80%;
   }
 
   .nutrition-header,
   .gallery-header {
-    font-size: 12px;
+    font-size: 8px;
   }
 
-  .nutrition-size {
-    font-size: 10px;
+  .nutrition-size,
+  .nutrition-value {
+    font-size: 8px;
   }
 
   .nutrition-attribute {
     padding: 0;
   }
 
-  /* .box-nutrition.open,
+  .box-nutrition.open,
   .box-gallery.open {
-    position: absolute;
-    width: 100%;
-    height: auto;
-  } */
-
-  /* .fish-info-container {
     position: fixed;
-  } */
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  .gallery-image {
+    max-width: 20%;
+    padding: 5px;
+    box-shadow: 5px 5px 5px gray;
+  }
+
+  .close-button-nutrition,
+  .close-button-gallery {
+    padding: 5px 10px;
+  }
 }
 
 @media screen and (min-width: 569px) {
@@ -414,22 +423,37 @@ img {
   .modal.gallery {
     padding: 20px;
     width: 50%;
-    height: 80%;
+    height: 60%;
   }
 
   .nutrition-header,
   .gallery-header {
-    font-size: 12px;
+    font-size: 16px;
   }
 
-  .nutrition-size {
-    font-size: 10px;
+  .nutrition-size,
+  .nutrition-value {
+    font-size: 14px;
   }
 
-  .box-nutrition.open,
+  /* .box-nutrition.open,
   .box-gallery.open {
     position: fixed;
-    width: 100%;
     height: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  } */
+
+  .gallery-image {
+    max-width: 50%;
+    padding: 10px;
+    box-shadow: 5px 5px 5px gray;
+  }
+
+  .close-button-nutrition,
+  .close-button-gallery {
+    padding: 10px 20px;
   }
 }
